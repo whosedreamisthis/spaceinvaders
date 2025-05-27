@@ -13,12 +13,20 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or \
+                event.key == pygame.K_RIGHT:
+                    player.speed = 0
     
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         player.move_left()
     elif keys[pygame.K_RIGHT]:
         player.move_right()
+    if keys[pygame.K_SPACE]:
+        player.shoot()
+        
+    player.update()
     screen.fill(BLACK)
     player.draw(screen)
     pygame.display.update()    
