@@ -17,7 +17,7 @@ class Enemy:
         self.speed = 0
         self.yspeed = 0
         self.bullets = []
-        self.time_since_last_bullet = 0
+        self.time_since_last_bullet = random.randint(200,500)
         self.shoot()
 
     def set_image_path(self,image_index):
@@ -67,7 +67,6 @@ class Enemy:
         for bullet in self.bullets:
             bullet.update()
             if bullet.is_off_screen():
-                print(f"removing bullet: {bullet.x} {bullet.y} {bullet.speed}")
                 self.bullets.remove(bullet)
         
     
