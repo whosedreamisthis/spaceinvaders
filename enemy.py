@@ -66,10 +66,9 @@ class Enemy:
             
         for bullet in self.bullets:
             bullet.update()
-            if bullet.is_off_screen():
-                self.bullets.remove(bullet)
         
-    
+        self.bullets = [bullet for bullet in self.bullets if not bullet.is_off_screen()]
+        
     def draw(self,screen):
         screen.blit(self.image, self.rect)
         for bullet in self.bullets:
