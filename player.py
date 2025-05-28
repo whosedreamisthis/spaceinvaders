@@ -38,7 +38,6 @@ class Player:
         if self.rect.centerx < self.rect.width/2:
             self.rect.centerx = self.rect.width/2
             
-        self.rect.centerx += self.speed 
         if self.rect.centerx > SCREEN_WIDTH:
             self.rect.centerx = SCREEN_WIDTH
             

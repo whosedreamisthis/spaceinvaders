@@ -19,5 +19,12 @@ class Bullet:
     def update(self):
         self.rect.centery += self.speed
         
+    def is_off_screen(self):
+        if self.speed > 0 and self.rect.centery > SCREEN_HEIGHT:
+            return True
+        if self.speed < 0 and self.rect.centery < 0:
+            return True
+        return False
+        
     def draw(self,screen):
         screen.blit(self.image, self.rect)
