@@ -3,7 +3,7 @@ from consts import *
 from bullet import Bullet
 
 class Enemy:
-    def __init__(self,image_index):
+    def __init__(self,x,y,image_index,shooting_enabled):
         image_path = self.set_image_path(image_index)
         self.image = pygame.image.load(image_path).convert_alpha() 
 
@@ -13,16 +13,17 @@ class Enemy:
         # # new_width = self.rect.width // 2
         # # new_height = self.rect.height // 2
         # self.image = pygame.transform.scale(self.image, (new_width, new_height))
-        
+        # self.shooting_enabled = shooting_enabled
         self.speed = 0
         self.yspeed = 0
         self.bullets = []
         self.time_since_last_bullet = random.randint(200,500)
-        self.shoot()
+        if shooting_enabled:
+            self.shoot()
         
         initial_rect = self.image.get_rect()
-        initial_rect.centerx = SCREEN_WIDTH // 2
-        initial_rect.bottom = SCREEN_HEIGHT//2
+        initial_rect.centerx = x#SCREEN_WIDTH // 2
+        initial_rect.bottom = y#SCREEN_HEIGHT//2
         new_width = initial_rect.width // 2
         new_height = initial_rect.height // 2
         self.image = pygame.transform.scale(self.image, (new_width, new_height))
