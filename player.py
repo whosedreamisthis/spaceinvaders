@@ -8,16 +8,33 @@ class Player:
         # self.y = y
         image_path = "assets/images/PNG/playerShip1_blue.png"
         self.image = pygame.image.load(image_path).convert_alpha() 
-
-        self.rect = self.image.get_rect()
-        self.rect.centerx = SCREEN_WIDTH // 2
-        self.rect.bottom = SCREEN_HEIGHT - 20
-        new_width = self.rect.width // 2
-        new_height = self.rect.height // 2
-        self.image = pygame.transform.scale(self.image, (new_width, new_height))
         self.speed = 0
+        
         self.bullets = []
         self.time_since_last_bullet = 0
+
+        initial_rect = self.image.get_rect()
+        initial_rect.centerx = SCREEN_WIDTH // 2
+        initial_rect.bottom = SCREEN_HEIGHT - 20
+        new_width = initial_rect.width // 2
+        new_height = initial_rect.height // 2
+        self.image = pygame.transform.scale(self.image, (new_width, new_height))
+        self.rect = self.image.get_rect()
+
+        self.rect.centerx = initial_rect.centerx
+        self.rect.bottom = initial_rect.bottom
+
+        # self.rect = self.image.get_rect()
+        
+        
+        # self.rect.centerx = SCREEN_WIDTH // 2
+        # self.rect.bottom = SCREEN_HEIGHT - 20
+        # new_width = self.rect.width // 2
+        # new_height = self.rect.height // 2
+        # self.image = pygame.transform.scale(self.image, (new_width, new_height))
+        # self.speed = 0
+        # self.bullets = []
+        # self.time_since_last_bullet = 0
 
     def shoot(self):
         if self.time_since_last_bullet <= 0:
@@ -41,10 +58,13 @@ class Player:
         if self.rect.centerx > SCREEN_WIDTH:
             self.rect.centerx = SCREEN_WIDTH
             
-        for bullet in self.bullets:
+        for bullet in self.bullets[:]:
             bullet.update()
+            if bullet.is_off_screen():
+                self.bullets.remove(bullet)
     
     def draw(self,screen):
         screen.blit(self.image, self.rect)
+        pygame.draw.rect(screen,RED,self.rect,1)
         for bullet in self.bullets:
             bullet.draw(screen)

@@ -29,8 +29,9 @@ while running:
     if keys[pygame.K_SPACE]:
         player.shoot()
         
-    enemy_manager.update()
     player.update()
+
+    enemy_manager.update(player)
     screen.fill(BLACK)
     enemy_manager.draw(screen)
     player.draw(screen)
