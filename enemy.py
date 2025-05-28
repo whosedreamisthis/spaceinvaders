@@ -3,7 +3,9 @@ from consts import *
 from bullet import Bullet
 
 class Enemy:
-    def __init__(self,x,y,image_index,shooting_enabled):
+    def __init__(self,x,y,row,col,image_index,shooting_enabled):
+        self.row = row
+        self.col = col
         image_path = self.set_image_path(image_index)
         self.image = pygame.image.load(image_path).convert_alpha() 
 
@@ -18,7 +20,8 @@ class Enemy:
         self.yspeed = 0
         self.bullets = []
         self.time_since_last_bullet = random.randint(200,500)
-        if shooting_enabled:
+        self.shooting_enabled = shooting_enabled
+        if self.shooting_enabled:
             self.shoot()
         
         initial_rect = self.image.get_rect()
@@ -69,7 +72,8 @@ class Enemy:
         
         if self.time_since_last_bullet <= 0:
             #if random.randint(1, 500) == 1: # 1% chance each frame to shoot
-            self.shoot()
+            if self.shooting_enabled:
+                self.shoot()
         self.rect.centerx += self.speed 
         if self.rect.centerx < self.rect.width/2:
             self.rect.centerx = self.rect.width/2
